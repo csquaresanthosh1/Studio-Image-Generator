@@ -10,6 +10,7 @@ export async function POST(req: Request) {
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash-image"
     })
+    console.log("Key : " , process.env.GEMINI_API_KEY)
 
     const parts: any[] = []
 
