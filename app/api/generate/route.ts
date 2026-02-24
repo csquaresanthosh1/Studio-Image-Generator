@@ -5,7 +5,7 @@ export async function POST(req: Request) {
 
     const { idea, images } = await req.json()
 
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
+    const genAI = new GoogleGenerativeAI("AIzaSyAudaNSSmYAIcmlYGakUQM4YhtkpVk2Pko")
 
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash-image"
