@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Nav from "./Nav"
+import Loader from "./Loader"
 
 export default function Page() {
 
@@ -114,6 +115,10 @@ export default function Page() {
       >
         {loading ? "Generating..." : "Generate"}
       </button>
+        <div className="">
+
+          <Loader lod={loading} />
+        </div>
 
       {/* Result Image */}
       {resultImage && (
