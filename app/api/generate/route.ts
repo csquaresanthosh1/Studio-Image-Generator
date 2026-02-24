@@ -7,6 +7,8 @@
 
       const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
+      console.log("ENV KEY:", process.env.GEMINI_API_KEY ? "exists" : "missing")
+      
       const model = genAI.getGenerativeModel({
         model: "gemini-2.5-flash-image"
       })
