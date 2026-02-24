@@ -1,137 +1,59 @@
 "use client"
 
-import { useState } from "react"
-import Nav from "./Nav"
-import Loader from "./Loader"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { motion } from "framer-motion"
 
-export default function Page() {
+export default function Home() {
 
-  const [theme , setTheme] = useState("dark")
-  const [idea, setIdea] = useState("")
-  const [images, setImages] = useState<File[]>([])
-  const [resultImage, setResultImage] = useState("")
-  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
-  const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-
-    const files = Array.from(e.target.files).slice(0, 3)
-    setImages(files)
-  }
-
-  const toBase64 = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        const base64 = (reader.result as string).split(",")[1]
-        resolve(base64)
-      }
-      reader.onerror = reject
-    })
-
-  const generate = async () => {
-
-    setLoading(true)
-
-    const base64Images = await Promise.all(
-      images.map(img => toBase64(img))
-    )
-
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        idea,
-        images: base64Images
-      })
-    })
-
-    const data = await res.json()
-
-    setResultImage(data.image)
-    setLoading(false)
-  }
+  // Soft entry delay for environment transition
+  useEffect(() => {
+    const t = setTimeout(() => {
+      router.replace("/studio")
+    }, 3000)
+    return () => clearTimeout(t)
+  }, [router])
 
   return (
-    <div className={`${theme === "dark" ? "bg-black" : "bg-blue-50"}`}>
-      <Nav theme={theme} setTheme={setTheme} />
-      <div className={`h-screen hidden  ${theme === "dark" ? "bg-black" : "bg-white"} mt-16 flex flex-col lg:flex-row`}>
-        <div className="w-full flex  justify-center items-center p-5">
-            <div className=" w-full h-full border-2 rounded-xl flex justify-center items-center">
-                hi
+
+      <div className="relative h-screen overflow-hidden">
+      
+              {/* Background blobs */}
+              <div className={`absolute  inset-0 -z-10 bg-black`}>
+      
+                <div style={{animationDuration: "12s",animationDelay: "-4s" }} className="absolute blob scale-50 md:scale-100 w-[500px] h-[500px] bg-blue-500 rounded-full blur-[120px] opacity-30 top-[-200px] left-[-150px]" />
+                <div style={{animationDuration: "6s",animationDelay: "-9s" }} className="absolute blob scale-50 md:scale-100 w-[450px] h-[450px] bg-purple-500 rounded-full blur-[120px] opacity-30 top-[10%] left-[60%]" />
+                <div style={{animationDuration: "12s",animationDelay: "-5s" }} className="absolute blob scale-50 md:scale-100 w-[400px] h-[400px] bg-pink-500 rounded-full blur-[120px] opacity-30 bottom-[10%] left-[10%]" />
+                <div style={{animationDuration: "9s",animationDelay: "-3s" }} className="absolute blob scale-50 md:scale-100 w-[500px] h-[500px] bg-cyan-400 rounded-full blur-[120px] opacity-30 bottom-[-200px] right-[-150px]" />
+                <div style={{animationDuration: "5s",animationDelay: "-8s" }} className="absolute blob scale-50 md:scale-100 w-[420px] h-[420px] bg-indigo-500 rounded-full blur-[120px] opacity-30 top-[40%] right-[10%]" />
+                <div style={{animationDuration: "11s",animationDelay: "-4s" }} className="absolute blob scale-50 md:scale-100 w-[380px] h-[380px] bg-sky-400 rounded-full blur-[120px] opacity-30 top-[20%] left-[20%]" />
+                <div style={{animationDuration: "14s",animationDelay: "-8s" }} className="absolute blob scale-50 md:scale-100 w-[450px] h-[450px] bg-fuchsia-500 rounded-full blur-[120px] opacity-30 top-[60%] left-[50%]" />
+                <div style={{animationDuration: "6s",animationDelay: "-3s" }} className="absolute blob scale-50 md:scale-100 w-[350px] h-[350px] bg-blue-400 rounded-full blur-[120px] opacity-30 bottom-[30%] right-[30%]" />
+                <div style={{animationDuration: "8s",animationDelay: "-8s" }} className="absolute blob scale-50 md:scale-100 w-[500px] h-[500px] bg-violet-500 rounded-full blur-[120px] opacity-30 top-[-150px] right-[20%]" />
+                <div style={{animationDuration: "4s",animationDelay: "-6s" }} className="absolute blob scale-50 md:scale-100 w-[420px] h-[420px] bg-cyan-300 rounded-full blur-[120px] opacity-30 bottom-[5%] left-[35%]" />
+                <div style={{animationDuration: "12s",animationDelay: "-3s" }} className="absolute blob scale-50 md:scale-100 w-[480px] h-[480px] bg-indigo-400 rounded-full blur-[120px] opacity-30 top-[25%] right-[45%]" />
+                <div style={{animationDuration: "8s",animationDelay: "-8s" }} className="absolute blob scale-50 md:scale-100 w-[350px] h-[350px] bg-purple-400 rounded-full blur-[120px] opacity-30 bottom-[40%] left-[60%]" />
+                <div style={{animationDuration: "13s",animationDelay: "-5s" }} className="absolute blob scale-50 md:scale-100 w-[450px] h-[450px] bg-sky-500 rounded-full blur-[120px] opacity-30 top-[70%] right-[5%]" />
+                <div style={{animationDuration: "4s",animationDelay: "-2s" }} className="absolute blob scale-50 md:scale-100 w-[420px] h-[420px] bg-pink-400 rounded-full blur-[120px] opacity-30 top-[5%] left-[40%]" />
+                <div style={{animationDuration: "6s",animationDelay: "-8s" }} className="absolute blob scale-50 md:scale-100 w-[380px] h-[380px] bg-blue-300 rounded-full blur-[120px] opacity-30 bottom-[60%] right-[15%]" />
+                <div style={{animationDuration: "3s",animationDelay: "-6s" }} className="absolute blob scale-50 md:scale-100 w-[500px] h-[500px] bg-violet-400 rounded-full blur-[120px] opacity-30 bottom-[-150px] left-[5%]" />
+                <div style={{animationDuration: "8s",animationDelay: "-3s" }} className="absolute blob scale-50 md:scale-100 w-[420px] h-[420px] bg-fuchsia-400 rounded-full blur-[120px] opacity-30 top-[50%] left-[75%]" />
+                <div style={{animationDuration: "3s",animationDelay: "-8s" }} className="absolute blob scale-50 md:scale-100 w-[360px] h-[360px] bg-indigo-300 rounded-full blur-[120px] opacity-30 bottom-[20%] right-[55%]" />
+                <div style={{animationDuration: "7s",animationDelay: "-6s" }} className="absolute blob scale-50 md:scale-100 w-[470px] h-[470px] bg-cyan-500 rounded-full blur-[120px] opacity-30 top-[35%] left-[5%]" />
+                <div style={{animationDuration: "12",animationDelay: "-12s" }} className="absolute blob scale-50 md:scale-100 w-[400px] h-[400px] bg-purple-600 rounded-full blur-[120px] opacity-30 bottom-[10%] right-[40%]" />
+      
+              </div>
+      
+              {/* Content */}
+              <div className="relative z-10 mt-16  pt-20 px-[5%] md:px-[10%] w-full flex justify-center items-center">
+      
+                Entering Studio...
+
+              </div>
+      
             </div>
-        </div>
-        <div className="bg-blue-500 w-full">
-            hello
-        </div>
 
-      </div>
-
-    <div className={`min-h-screen flex flex-col mt-16   items-center gap-6 p-10`}>
-
-      <h1 className={`text-3xl font-bold ${theme === "dark" ? "text-white" : "text-black"}`}>
-        AI Art Director
-      </h1>
-
-      {/* Prompt */}
-      <input
-        value={idea}
-        onChange={(e) => setIdea(e.target.value)}
-        placeholder="Describe the image you want..."
-        className={`border p-3 rounded w-96 ${theme === "dark" ? "bg-black border-white text-white" : "bg-black/5 border-black text-black"}`}
-      />
-
-      {/* Upload */}
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={handleFiles}
-        className={`border p-2 rounded ${theme === "dark" ? "bg-black border-white text-white" : "bg-black/5 border-black text-black"}`}
-      />
-
-      <p className={` text-sm opacity-60 ${theme === "dark" ? "text-white" : "text-black"}`}>
-        Upload up to 3 reference images
-      </p>
-
-      {/* Reference preview */}
-      <div className="flex gap-3">
-        {images.map((img, i) => (
-          <img
-            key={i}
-            src={URL.createObjectURL(img)}
-            className="w-64  object-cover rounded"
-          />
-        ))}
-      </div>
-
-      {/* Generate */}
-      <button
-        onClick={generate}
-        className={` border-1 px-6 py-2 rounded ${theme === "dark" ? "bg-black border-white text-white" : "bg-black/5 border-black text-black"}`}
-      >
-        {loading ? "Generating..." : "Generate"}
-      </button>
-        <div className="">
-
-          <Loader lod={loading} />
-        </div>
-
-      {/* Result Image */}
-      {resultImage && (
-        <div className="mt-6">
-          <h2 className={` mb-2 font-semibold ${theme === "dark" ? "text-white" : "text-black"}`}>Generated Image</h2>
-          <img
-            src={resultImage}
-            className="w-[500px] rounded shadow"
-          />
-        </div>
-      )}
-
-    </div>
-    </div>
   )
 }

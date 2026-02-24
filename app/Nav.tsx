@@ -11,7 +11,7 @@ export default function Nav({ theme, setTheme }: Props) {
 
   return (
     <div className="relative flex flex-row justify-center">
-      <div className={`absolute ${theme === "dark" ? "bg-gray-800/20 border-white" : "bg-gray-400/20 border-black"} backdrop-blur-[5px] lg:border top-3  rounded-[10px] flex flex-row w-full lg:w-[80%] justify-center h-13 items-center`}>
+      <div className={`absolute  ${theme === "dark" ? " border-black bg-black/20" : " border-white bg-white/20"} backdrop-blur-[5px] lg:border top-10  rounded-[10px] flex flex-row w-[90%] lg:w-[80%] justify-center h-13 items-center`}>
 
         <div className="h-full w-full flex flex-row items-center">
           <h1 className={`mx-5 font-bold ${theme === "dark" ? "text-white" : "text-black"}`} >Studio Image Editor</h1>
