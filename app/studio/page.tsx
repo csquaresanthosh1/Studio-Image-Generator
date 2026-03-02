@@ -1,12 +1,15 @@
 "use client"
 
-import { useRef, useState, type ChangeEvent } from "react"
+import { useEffect , useRef, useState, type ChangeEvent } from "react"
 
 import Nav from "../Nav"
 import Loader from "../Loader"
 
 export default function Page() {
   const [imgInfo, setImgInfo] = useState({ width: 0, height: 0 })
+   const [seconds, setSeconds] = useState(0)
+
+   
 
   const handleImageLoad = (
     e: React.SyntheticEvent<HTMLImageElement>
@@ -27,6 +30,22 @@ export default function Page() {
   ])
   const [resultImage, setResultImage] = useState("")
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null
+
+    if (loading) {
+      interval = setInterval(() => {
+        setSeconds((prev) => prev + 1)
+      }, 1000)
+    } else {
+      setSeconds(0)
+    }
+
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [loading])
 
   const inputs = [
     useRef<HTMLInputElement | null>(null),
@@ -296,7 +315,7 @@ export default function Page() {
               `}>
                 <div className={`w-full
                   h-full
-                  rounded-2xl
+                  rounded-2xl relative
                   ${theme === "dark" ? "bg-black/20" : "bg-white/20"}
                   flex
                   items-center
@@ -309,8 +328,11 @@ export default function Page() {
 
                               {/* Loading */}
                               {loading && (
-                                <div className="flex justify-center">
+                                <div className="flex flex-col justify-center">
                                   <Loader lod={loading} />
+                                    <p className="text-sm absolute bottom-10 right-10  opacity-70">
+                                       {seconds}s
+                                    </p>
                                 </div>
                               )}
                               {/* Generated  */}
